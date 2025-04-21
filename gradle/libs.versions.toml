@@ -75,10 +75,10 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 
 location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "location"}
 
-camera-core = { group = "androidx.camera:camera", name = "camera-core", version.ref = "camerax"}
-camera-camera2 = { group = "androidx.camera:camera-camera2", name = "camera-camera2", version.ref = "camerax"}
-camera-lifecycle = { group = "androidx.camera:camera-lifecycle", name = "camera-lifecycle", version.ref = "camerax"}
-camera-view = { group = "androidx.camera:camera-view", name = "camera-view", version.ref = "camerax"}
+camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "camerax"}
+camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "camerax"}
+camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "camerax"}
+camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "camerax"}
 
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
 
