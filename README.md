@@ -22,3 +22,14 @@ Location: 위치 정보
 </br>
 
 (현재는 위 기술을 기반으로 진행 예정)
+
+## 환경 설정
+### KAPT 와 KSP
+https://developer.android.com/build/migrate-to-ksp?hl=ko
+KAPT : 자바의 annotationProcessor 를 Kotlin 에 환경에 맞게 확장한 도구
+KSP :  KSP는 Kotlin 코드를 직접 분석하기 때문에 시간이 최대 2배 빠름. 또한 Kotlin 언어 구성을 더 잘 이해 함.
+현재 지원하는 KSP 로 된 라이브러리 : Dagger(Hilt), Glide, Room, Moshi (계속 추가되고는 있다고 함.)
+
+
+
+
