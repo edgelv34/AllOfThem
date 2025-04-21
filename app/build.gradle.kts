@@ -1,3 +1,6 @@
+import com.android.build.api.variant.BuildConfigField
+import java.util.*
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -19,10 +22,21 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    val seProperties = Properties()
+    val sePropertiesFile = File(rootDir, "secret.properties")
+    if (sePropertiesFile.exists() && sePropertiesFile.isFile) {
+        sePropertiesFile.inputStream().use {
+            seProperties.load(it)
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        debug {
+            buildConfigField(type = "String", name = "SE_TITLE", seProperties.getProperty("SECRET_STR"))
         }
     }
     compileOptions {
@@ -34,6 +48,8 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+        resValues = true
     }
 }
 
