@@ -6,6 +6,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.secrets.gradle.plugin)
+    alias(libs.plugins.jetbrains.kotlin.parcelize)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -22,21 +25,13 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    val seProperties = Properties()
-    val sePropertiesFile = File(rootDir, "secret.properties")
-    if (sePropertiesFile.exists() && sePropertiesFile.isFile) {
-        sePropertiesFile.inputStream().use {
-            seProperties.load(it)
-        }
-    }
-
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         debug {
-            buildConfigField(type = "String", name = "SE_TITLE", seProperties.getProperty("SECRET_STR"))
+         //   buildConfigField(type = "String", name = "MAP_API", seProperties.getProperty("MAP_API_KEY"))
         }
     }
     compileOptions {
@@ -55,6 +50,7 @@ android {
 
 dependencies {
 
+    implementation(platform(libs.kotlin.bom))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -82,6 +78,7 @@ dependencies {
     implementation(libs.okhttp.logging)
 
     implementation(libs.location)
+    implementation(libs.place)
 
     implementation(libs.camera.core)
     implementation(libs.camera.camera2)
@@ -98,6 +95,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     testImplementation(libs.coroutine.test)
+    kspTest(libs.hilt.android.compiler)
+}
 
-
+// Secrets for Google Maps API Keys
+secrets {
+    propertiesFileName = "secrets.properties"
 }
