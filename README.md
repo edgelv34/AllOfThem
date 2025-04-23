@@ -4,7 +4,7 @@
 ## 기술 스택
 Clean Architecture: Domain, Data, Presentation(ui) 레이어 분리
 </br>
-MVI 패턴: Intent 기반 상태 관리
+MVI 패턴: Event(Intent), State, SideEffect, Reducer
 </br>
 Jetpack Compose: UI 구현
 </br>

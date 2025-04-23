@@ -1,5 +1,6 @@
 package com.lucky.allofthem.ui.main
 
+import com.lucky.allofthem.common.AppError
 import com.lucky.allofthem.domain.model.Place
 import com.lucky.allofthem.ui.mvi.SideEffect
 import com.lucky.allofthem.ui.mvi.UiEvent
@@ -11,9 +12,11 @@ data class MainState(
 ): UiState
 
 sealed class MainEvent: UiEvent {
-    object GetPlace: MainEvent()
+    object LoadInitial : MainEvent()
+    data class LoadSuccess(val places: List<Place>) : MainEvent()
+    data class LoadFailed(val error: AppError) : MainEvent()
 }
 
 sealed class MainEffect: SideEffect {
-
+    data class ShowToast(val message: String) : MainEffect()
 }
