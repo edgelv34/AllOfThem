@@ -1,8 +1,14 @@
+import com.android.build.api.variant.BuildConfigField
+import java.util.*
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.secrets.gradle.plugin)
+    alias(libs.plugins.jetbrains.kotlin.parcelize)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -24,6 +30,9 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+        debug {
+         //   buildConfigField(type = "String", name = "MAP_API", seProperties.getProperty("MAP_API_KEY"))
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -34,11 +43,14 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
+        resValues = true
     }
 }
 
 dependencies {
 
+    implementation(platform(libs.kotlin.bom))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -66,6 +78,7 @@ dependencies {
     implementation(libs.okhttp.logging)
 
     implementation(libs.location)
+    implementation(libs.place)
 
     implementation(libs.camera.core)
     implementation(libs.camera.camera2)
@@ -82,6 +95,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     testImplementation(libs.coroutine.test)
+    kspTest(libs.hilt.android.compiler)
+}
 
-
+// Secrets for Google Maps API Keys
+secrets {
+    propertiesFileName = "secrets.properties"
 }
