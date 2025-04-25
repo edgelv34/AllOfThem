@@ -6,13 +6,18 @@ class MainReducer: Reducer<MainState, MainEvent, MainEffect>() {
 
     override fun reduce(state: MainState, event: MainEvent, sideEffect: (MainEffect) -> Unit): MainState {
         return when(event) {
-            MainEvent.LoadInitial -> state.copy(isLoading = true)
-            is MainEvent.LoadSuccess -> state.copy(
-                isLoading = false,
-                place = state.place + event.places
+            is MainEvent.GetShortTermForecast -> state.copy(
+                isLoading = true,
+                error = ""
             )
-            is MainEvent.LoadFailed -> state.copy(
-                isLoading = false
+            is MainEvent.GetShortTermForecastSuccess -> state.copy(
+                isLoading = false,
+                place = state.place + event.places,
+                error = ""
+            )
+            is MainEvent.Failed -> state.copy(
+                isLoading = false,
+                error = event.error
             )
         }
     }

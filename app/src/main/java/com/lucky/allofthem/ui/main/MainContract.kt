@@ -7,13 +7,14 @@ import com.lucky.allofthem.ui.mvi.UiState
 
 data class MainState(
     val place: List<Place> = emptyList(),
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    val error: String = ""
 ): UiState
 
 sealed class MainEvent: UiEvent {
-    object LoadInitial : MainEvent()
-    data class LoadSuccess(val places: List<Place>) : MainEvent()
-    data class LoadFailed(val error: String) : MainEvent()
+    data class GetShortTermForecast(val pageNo: Int): MainEvent()
+    data class GetShortTermForecastSuccess(val places: List<Place>) : MainEvent()
+    data class Failed(val error: String) : MainEvent()
 }
 
 sealed class MainEffect: SideEffect {

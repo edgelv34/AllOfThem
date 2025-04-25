@@ -7,6 +7,8 @@ import com.lucky.allofthem.common.constant.DomainConstant
 import com.lucky.allofthem.data.remote.ApiInterceptor
 import com.lucky.allofthem.data.remote.api.WeatherApi
 import com.lucky.allofthem.data.remote.datasource.WeatherDatasource
+import com.lucky.allofthem.data.repository.WeatherRepositoryImpl
+import com.lucky.allofthem.domain.repository.WeatherRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +27,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RemoteModule {
 
+    @Provides
+    @Singleton
+    fun provideWeatherRepository(weatherDatasource: WeatherDatasource): WeatherRepository {
+        return WeatherRepositoryImpl(weatherDatasource)
+    }
 
     @Provides
     @Singleton

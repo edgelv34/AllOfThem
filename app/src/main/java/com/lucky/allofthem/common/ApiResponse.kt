@@ -3,7 +3,7 @@ package com.lucky.allofthem.common
 import okio.IOException
 import retrofit2.HttpException
 
-sealed interface ApiResponse<out T> {
+sealed interface ApiResponse<out R> {
     data class Success<out T>(val data: T): ApiResponse<T>
     data object NetworkError : ApiResponse<Nothing>
     data object Unauthorized : ApiResponse<Nothing>

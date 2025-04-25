@@ -1,7 +1,5 @@
 package com.lucky.allofthem.ui.main
 
-import android.util.Log
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -46,11 +44,9 @@ fun MainScreen(
         ) {
 
         }
-
     }
 
     if (state.isLoading) {
-        Log.d("@@@", "state.isLoading : show?")
         Loading()
     }
 

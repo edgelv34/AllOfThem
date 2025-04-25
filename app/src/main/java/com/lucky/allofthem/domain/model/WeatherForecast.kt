@@ -5,11 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class WeatherForecast(
-    val weathers: List<WeatherForecastItem>
-): Parcelable
-
-@Parcelize
-data class WeatherForecastItem(
     val baseDate: String,
     val baseTime: String,
     val category: String,

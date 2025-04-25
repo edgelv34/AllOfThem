@@ -25,7 +25,7 @@ interface WeatherApi {
      */
     @GET(SHORT_TERM_FORECAST)
     suspend fun getShortTermForecast(
-        @Query("serviceKey") serviceKey: String,
+        @Query("serviceKey", encoded = true) serviceKey: String,
         @Query("numOfRows") numOfRows: Int,
         @Query("pageNo") pageNo: Int,
         @Query("base_date") baseDate: String,
