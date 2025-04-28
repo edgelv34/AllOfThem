@@ -1,29 +1,26 @@
 # AllOfThem
-주로 사용하는 기술들을 사용하여 만든 프로젝트
 
-## 기술 스택
-Clean Architecture: Domain, Data, Presentation(ui) 레이어 분리
-</br>
-MVI 패턴: Event(Intent), State, SideEffect, Reducer
-</br>
-Jetpack Compose: UI 구현
-</br>
-Coroutine & Flow: 비동기 처리
-</br>
-Dagger Hilt: 의존성 주입
-</br>
-Room: 로컬 데이터베이스
-</br>
-Retrofit: API 통신
-</br>
-CameraX: 카메라 기능
-</br>
-Location: 위치 정보
-</br>
+## 🛠️ 프로젝트 소개
+이 프로젝트는 **MVI (Model-View-Intent)** 와 **Clean Architecture**를 정리하기위해 만든 프로젝트로,
+공공데이터포털의 기상청 초단기예보 데이터를 활용한 앱입니다.
 
-(현재는 위 기술을 기반으로 진행 예정)
 
-## 환경 설정
+## 📐 프로젝트 구조
+- MVI (State, Event, Effect, Reducer)
+- Clean Architecture
+
+
+### 사용한 주요 기술
+- Kotlin
+- Jetpack Compose
+- Hilt (DI)
+- Coroutine & Flow
+- Retrofit2
+- Location Service (Foreground/Background)
+
+
+
+## 🧩 환경
 ### KAPT 와 KSP (ksp 지원하는 라이브러리는 ksp 로 진행)
 https://developer.android.com/build/migrate-to-ksp?hl=ko
 </br>
@@ -35,11 +32,3 @@ KSP : KSP는 Kotlin 코드를 직접 분석하기 때문에 KAPT 에 비해 시�
 </br>
 https://kotlinlang.org/docs/ksp-overview.html#supported-libraries 에서 확인가능.
 </br>
-
-## 프로젝트 구조 (clean architecture)
-data, domain, ui 그리고 common, di 를 패키지단위로 구성 (소규모이므로, 모듈단위로 만들지 않음)
-</br>
-di 는 data/di, domain/di, ui/di 와 같이 하위에 넣어도 되지만, common 과 같은 level 에서 처리하도록 함.
-</br>
-
-
