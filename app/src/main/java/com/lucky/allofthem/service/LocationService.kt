@@ -16,6 +16,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.lucky.allofthem.R
 import com.lucky.allofthem.domain.repository.LocationRepository
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +34,8 @@ class LocationService: LifecycleService() {
     lateinit var locationRepository: LocationRepository
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val cancellationTokenSource = CancellationTokenSource()
+    private var requestCurrentLocationTime = 0L
 
     companion object {
         const val CHANNEL_ID = "location_service_channel"
@@ -47,6 +50,9 @@ class LocationService: LifecycleService() {
         Log.d("LocationService", "서비스 시작")
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         startForegroundService()
+        //최초 한번만 현재 위치정보 획득
+        getCurrentLocation()
+        //주기에 따라 위치정보 획득
         startLocationUpdates()
     }
 
@@ -70,6 +76,23 @@ class LocationService: LifecycleService() {
         (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
     }
 
+    @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
+    private fun getCurrentLocation() {
+        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, cancellationTokenSource.token)
+            .addOnSuccessListener { location ->
+                location?.let {
+                    if (Math.abs(location.time - requestCurrentLocationTime) < 5000) {
+                        return@let
+                    }
+
+                    lifecycleScope.launch {
+                        requestCurrentLocationTime = location.time
+                        locationRepository.emitLocation(location)
+                    }
+                }
+            }
+    }
+
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     private fun startLocationUpdates() {
@@ -87,7 +110,11 @@ class LocationService: LifecycleService() {
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(result: LocationResult) {
             result.lastLocation?.let { location ->
+                if (Math.abs(location.time - requestCurrentLocationTime) < 5000) {
+                    return
+                }
                 lifecycleScope.launch {
+                    requestCurrentLocationTime = location.time
                     locationRepository.emitLocation(location)
                 }
             }

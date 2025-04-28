@@ -7,23 +7,25 @@ class MainReducer: Reducer<MainState, MainEvent, MainEffect>() {
     override fun reduce(state: MainState, event: MainEvent, sideEffect: (MainEffect) -> Unit): MainState {
         return when(event) {
             is MainEvent.GetShortTermForecast -> state.copy(
-                isLoading = true,
-                error = ""
+                isLoading = true
             )
-            is MainEvent.GetShortTermForecastSuccess -> state.copy(
+            is MainEvent.UpdateShortTermForecast -> state.copy(
                 isLoading = false,
-                place = state.place + event.places,
-                error = ""
+                weatherForecast = event.weatherForecast
             )
 
             is MainEvent.UpdateLocation -> state.copy(
                 location = event.location
             )
 
-            is MainEvent.Failed -> state.copy(
-                isLoading = false,
-                error = event.error
-            )
+            is MainEvent.Failed -> {
+                sideEffect(MainEffect.ShowToast(event.error))
+                state.copy(
+                    isLoading = false
+                )
+            }
+
+
         }
     }
 }

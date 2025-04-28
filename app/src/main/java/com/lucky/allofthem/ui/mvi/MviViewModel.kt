@@ -40,7 +40,7 @@ abstract class MviViewModel<S: UiState, E: UiEvent, F: SideEffect>(
         }
     }
 
-    private fun sendSideEffect(effect: F) {
+    fun sendSideEffect(effect: F) {
         viewModelScope.launch {
             _sideEffect.send(effect)
         }

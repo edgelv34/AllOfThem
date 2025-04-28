@@ -1,6 +1,7 @@
 package com.lucky.allofthem.ui.main
 
 import androidx.lifecycle.viewModelScope
+import com.lucky.allofthem.common.ApiResponse
 import com.lucky.allofthem.common.DateUtil
 import com.lucky.allofthem.domain.usecase.GetShortTermForecastUseCase
 import com.lucky.allofthem.domain.usecase.ObserveLocationUseCase
@@ -31,16 +32,9 @@ class MainViewModel @Inject constructor(
                 getWeather(event.pageNo)
             }
 
-            is MainEvent.GetShortTermForecastSuccess -> {
-
-            }
-
             is MainEvent.UpdateLocation -> {
-                sendEvent(MainEvent.GetShortTermForecast(1))
-            }
-
-            is MainEvent.Failed -> {
-
+                //위치정보가 업데이트되면 기상 예보 정보도 변경하기위해서 API 재 발송
+                sendEvent(MainEvent.GetShortTermForecast(0))
             }
 
             else -> {}
@@ -58,14 +52,22 @@ class MainViewModel @Inject constructor(
     private fun getWeather(pageNo: Int) {
         viewModelScope.launch {
             getShortTermForecastUseCase.invoke(
-                numOfRows = 10,
+                numOfRows = 30,
                 pageNo = pageNo,
                 baseDate = DateUtil.getBeforeOneHourLocalDate(),
                 baseTime = DateUtil.getBeforeOneHourLocalTime(),
                 lat = uiState.value.location.latitude,
                 lng =  uiState.value.location.longitude
-            ).collectLatest {
+            ).collectLatest { response ->
+                when(response) {
+                    is ApiResponse.Success -> {
+                        sendEvent(MainEvent.UpdateShortTermForecast(weatherForecast = response.data))
+                    }
 
+                    is ApiResponse.Failure -> {
+                        sendEvent(MainEvent.Failed(response.message))
+                    }
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,6 +21,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lucky.allofthem.ui.component.CommonSnackbar
 import com.lucky.allofthem.ui.component.Loading
 import com.lucky.allofthem.ui.theme.AllOfThemTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(
@@ -31,6 +33,17 @@ fun MainScreen(
     var showSnackBar by rememberSaveable { mutableStateOf("") }
 
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { effect ->
+            when(effect) {
+                is MainEffect.ShowToast -> {
+                    showSnackBar = effect.message
+                }
+            }
+        }
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
