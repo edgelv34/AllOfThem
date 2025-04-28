@@ -25,9 +25,7 @@ class WeatherRepositoryImpl(
         lat: Double,
         lng: Double
     ): Flow<ApiResponse<List<WeatherForecast>>> = flow {
-        Log.d("@@@", "enterd2")
         val response = safeApiCall {
-            Log.d("@@@", "enterd2-1")
             val weatherResponse = weatherDatasource.getShortTermForecast(
                 serviceKey = serviceKey,
                 numOfRows = numOfRows,

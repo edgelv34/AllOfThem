@@ -15,6 +15,11 @@ class MainReducer: Reducer<MainState, MainEvent, MainEffect>() {
                 place = state.place + event.places,
                 error = ""
             )
+
+            is MainEvent.UpdateLocation -> state.copy(
+                location = event.location
+            )
+
             is MainEvent.Failed -> state.copy(
                 isLoading = false,
                 error = event.error

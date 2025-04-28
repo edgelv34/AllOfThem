@@ -19,7 +19,6 @@ class WeatherDatasource(
         dataType: String = "JSON"
     ): WeatherForecastDto {
         val latXLngY = convertGridFromGPS(lat = lat, lng = lng)
-        Log.d("@@@", "enterd3")
         return weatherApi.getShortTermForecast(
             serviceKey = serviceKey,
             numOfRows = numOfRows,
