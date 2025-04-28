@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.secrets.gradle.plugin)
     alias(libs.plugins.jetbrains.kotlin.parcelize)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.hilt)
 }
 
@@ -51,6 +52,8 @@ android {
 dependencies {
 
     implementation(platform(libs.kotlin.bom))
+    implementation(libs.kotlin.serialization.json)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -76,6 +79,7 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
+    implementation(libs.okhttp.urlconnection)
 
     implementation(libs.location)
     implementation(libs.place)
