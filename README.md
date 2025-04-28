@@ -1,6 +1,6 @@
 # AllOfThem
 
-## 🛠️ 프로젝트 소개
+## 📄 프로젝트 소개
 이 프로젝트는 **MVI (Model-View-Intent)** 와 **Clean Architecture**를 정리하기위해 만든 프로젝트로,
 공공데이터포털의 기상청 초단기예보 데이터를 활용한 앱입니다.
 
@@ -22,7 +22,7 @@
 </br>
 
 
-### 사용한 주요 기술
+### 🛠️ 사용한 주요 기술
 - Kotlin
 - Jetpack Compose
 - Hilt (DI)
@@ -32,7 +32,7 @@
 
 
 
-## 🧩 환경
+## ⚙️ 환경
 ### KAPT 와 KSP (ksp 지원하는 라이브러리는 ksp 로 진행)
 https://developer.android.com/build/migrate-to-ksp?hl=ko
 </br>
