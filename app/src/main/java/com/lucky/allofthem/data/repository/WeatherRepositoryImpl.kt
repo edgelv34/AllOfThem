@@ -38,7 +38,7 @@ class WeatherRepositoryImpl(
             //공공데이터 포털에서 성공코드 == 00
             //실패하면 IllegalStateException 를 throw 하도록 함.
             if (weatherResponse.response.header.resultCode != "00") {
-                throw IllegalStateException(weatherResponse.response.header.resultMsg)
+                throw IllegalStateException("code : ${weatherResponse.response.header.resultCode} message : ${weatherResponse.response.header.resultMsg}")
             }
             weatherResponse.mapper()
         }
