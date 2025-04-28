@@ -10,6 +10,18 @@
 - Clean Architecture
 
 
+![Image](https://github.com/user-attachments/assets/ef80a2ca-5e3e-4587-8576-0a5523ddd0d9)
+
+**Event(Intent)** : Event 를 받으면 Reducer 또는 UseCase 로 전달
+</br>
+**Reducer** : Event 를 수신하여 State 로 변환
+</br>
+**State** : 상태들을 저장 (주로 상태가 변경되었을 때 화면을 렌더링 하기위함)
+</br>
+**UseCase, Repository, Data** : Clean Architecture 형태로 domain 영역을 통해 data 영역에서 데이터들을 가져옴
+</br>
+
+
 ### 사용한 주요 기술
 - Kotlin
 - Jetpack Compose
