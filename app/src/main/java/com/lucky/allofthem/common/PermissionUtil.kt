@@ -10,6 +10,11 @@ import androidx.core.app.ActivityCompat
 object PermissionUtil {
 
     /**
+     * 알림 권한
+     */
+    val PERMISSION_NOTIFICATION = Manifest.permission.POST_NOTIFICATIONS
+
+    /**
      * 카메라 권한
      */
     val PERMISSIONS_CAMERA = Manifest.permission.CAMERA
@@ -17,11 +22,21 @@ object PermissionUtil {
     /**
      * 위치 권한
      */
+    @RequiresApi(Build.VERSION_CODES.Q)
+    val PERMISSIONS_LOCATION_ALL =
+        arrayOf(
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION
+        )
+
     val PERMISSIONS_LOCATION =
         arrayOf(
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
         )
+
+    val PERMISSION_BACKGROUND_LOCATION = Manifest.permission.ACCESS_BACKGROUND_LOCATION
 
     /**
      * Q 이하 저장소 권한
@@ -137,5 +152,23 @@ object PermissionUtil {
         }
     }
 
+    @JvmStatic
+    fun checkNotification(activity: Activity): Boolean {
+        return hasSelfPermission(activity, PERMISSION_NOTIFICATION)
+    }
+
+    @JvmStatic
+    fun checkLocation(activity: Activity): Boolean {
+        return hasSelfPermission(activity, PERMISSIONS_LOCATION)
+    }
+
+    @JvmStatic
+    fun checkBackgroundLocation(activity: Activity): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            hasSelfPermission(activity, PERMISSION_BACKGROUND_LOCATION)
+        } else {
+            true
+        }
+    }
 
 }

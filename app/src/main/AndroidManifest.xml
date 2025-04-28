@@ -3,6 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET " />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"
+        tools:ignore="SystemPermissionTypo" />
+
+
 
     <application
         android:name=".AllOfThem"
@@ -23,6 +37,14 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
+
+        <service android:name=".service.LocationService"
+            android:foregroundServiceType="location"
+            android:permission="android.permission.FOREGROUND_SERVICE_LOCATION"
+            android:enabled="true"
+            android:exported="false"
+            tools:ignore="SystemPermissionTypo"/>
+
 
         <activity
             android:name=".ui.main.MainActivity"

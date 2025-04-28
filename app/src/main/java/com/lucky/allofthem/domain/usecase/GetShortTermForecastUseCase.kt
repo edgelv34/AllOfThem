@@ -1,6 +1,5 @@
 package com.lucky.allofthem.domain.usecase
 
-import android.util.Log
 import com.lucky.allofthem.BuildConfig
 import com.lucky.allofthem.common.ApiResponse
 import com.lucky.allofthem.domain.model.WeatherForecast
@@ -20,7 +19,6 @@ class GetShortTermForecastUseCase @Inject constructor(
         lat: Double,
         lng: Double
     ): Flow<ApiResponse<List<WeatherForecast>>> {
-        Log.d("@@@", "enterd1")
         return weatherRepository.getShortTermForecast(
             serviceKey = BuildConfig.WEATHER_SERVICE_KEY,
             numOfRows = numOfRows,
