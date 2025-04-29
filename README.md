@@ -44,3 +44,7 @@ KSP : KSP는 Kotlin 코드를 직접 분석하기 때문에 KAPT 에 비해 시�
 </br>
 https://kotlinlang.org/docs/ksp-overview.html#supported-libraries 에서 확인가능.
 </br>
+
+### secrets.properties 사용 ###
+API KEY 와 같은 민감한 값들은 secrets.properties 에 정의 되어있습니다.
+##### 참고: 실제 공공데이터포털과 Google MAPs Platform 의 KEY 값들을 정의하였기때문에, 소스 참고가 아닌 앱 구동을 하기위해서는 secrets.properties 에 KEY 값을 등록해야합니다.
