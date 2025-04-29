@@ -9,6 +9,7 @@ import com.lucky.allofthem.ui.mvi.UiState
 
 data class MainState(
     val place: List<Place> = emptyList(),
+    val pageNo: Int = 1,
     val isLoading: Boolean = false,
     val location: Location = Location(
         latitude = 35.5873138888888,
